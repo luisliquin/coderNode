@@ -44,3 +44,10 @@ Para validar el correcto funcionamiento de la clase `ProductManager`, se seguir�
 5. Llamar al método `getProducts` nuevamente; esta vez debe aparecer el producto recién agregado.
 6. Intentar agregar otro producto con el mismo `code` debería arrojar un error, indicando que el código está repetido.
 7. Probar el método `getProductById` para evaluar que devuelva un error si no encuentra el producto, o el producto en caso de encontrarlo.
+
+## Para Ejecutar este Código
+
+1. Asegúrate de tener Node.js instalado en tu sistema.
+2. Guarda el js tu equipo
+3. Abre una terminal y navega al directorio donde guardaste el archivo.
+4. Ejecuta el script con Node.js usando el comando node productManager.js.
