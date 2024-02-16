@@ -50,4 +50,4 @@ Para validar el correcto funcionamiento de la clase `ProductManager`, se seguir√
 1. Aseg√∫rate de tener Node.js instalado en tu sistema.
 2. Guarda el js tu equipo
 3. Abre una terminal y navega al directorio donde guardaste el archivo.
-4. Ejecuta el script con Node.js usando el comando node productManager.js.
+4. Ejecuta el script con Node.js usando el comando node Desafio1.js.
