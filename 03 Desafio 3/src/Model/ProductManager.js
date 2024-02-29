@@ -16,7 +16,7 @@ class ProductManager {
           ? Math.max(...this.products.map((p) => p.id)) + 1
           : 1;
     } catch (error) {
-      console.error("Error reading products from file:", error.message);
+      console.error("Error durante la lectura del archivo:", error.message);
       this.products = [];
     } finally {
       console.log("Finalizacion de readProductsFromFIle");
