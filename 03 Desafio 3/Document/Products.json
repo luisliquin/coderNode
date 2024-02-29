@@ -25,5 +25,14 @@
     "thumbnail": "nueva-url-de-la-imagen",
     "code": "PRD-003",
     "stock": 25
+  },
+  {
+    "id": 4,
+    "title": "Palmito",
+    "description": "Palmito",
+    "price": 4000,
+    "thumbnail": "Sin imagen",
+    "code": "PRD-004",
+    "stock": 25
   }
 ]
