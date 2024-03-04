@@ -7,9 +7,9 @@ export class ProductManager {
     this.readProductsFromFile();
   }
   
-  readProductsFromFile() {
+  async readProductsFromFile() {
     try {
-      const data = fs.readFileSync(this.filePath, "utf-8");
+      const data = await fs.promises.readFile(this.filePath, "utf-8");
       this.products = JSON.parse(data);
     } catch (error) {
       console.error("Error durante la lectura del archivo:", error.message);
@@ -18,14 +18,14 @@ export class ProductManager {
   }
 
   //metodo para obtener todos los productos
-  getProducts() {
-    this.readProductsFromFile();
+  async getProducts() {
+    await this.readProductsFromFile();
     return this.products;
   }
 
   //metodo para obtner solo un producto
-  getProductById(id) {
-    this.readProductsFromFile();
+  async getProductById(id) {
+    await this.readProductsFromFile();
     const product = this.products.find((product) => product.id == id);
     if (!product) {
       throw new Error("Producto no encontrado.");

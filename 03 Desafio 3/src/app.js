@@ -11,9 +11,8 @@ app.use(express.urlencoded({extended: true}));
 app.get('/products', async (req, res) => {
     try {
         const { limit } = req.query;
-        const productList = await products.getProducts()
-        res.json(limit ? productList.slice(0, Number(limit)) : productList)        
-        res.send(productList);
+        const productList = await products.getProducts();
+        res.json(limit ? productList.slice(0, Number(limit)) : productList);        
     }catch(error){
         res.status(500).send(error.message);
     }
@@ -22,8 +21,8 @@ app.get('/products', async (req, res) => {
 //obtendo solamente por id del producto
 app.get('/products/:id', async (req, res) => {
     try {
-        const { id } = req.params
-        const product = await products.getProductById(id)
+        const { id } = req.params;
+        const product = await products.getProductById(id);
         if (product){
             res.json(product);
         }
