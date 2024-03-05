@@ -1,11 +1,9 @@
 import express from 'express';
-import { ProductManager } from './Service/ProductManager.js';
+import productsRouter from './routes/carts.js';
+import cartsRouter from './routes/products.js';
 
-const products = new ProductManager('./src/Data/products.json') ;
 const app = express(); 
 const port = 8080;
-
-app.use(express.urlencoded({extended: true}));
 
 //obtengo desde la app el listado
 app.get('/products', async (req, res) => {
