@@ -2,33 +2,18 @@ import express from 'express';
 import productsRouter from './routes/carts.js';
 import cartsRouter from './routes/products.js';
 
-const app = express(); 
 const port = 8080;
+const app = express(); 
 
-//obtengo desde la app el listado
-app.get('/products', async (req, res) => {
-    try {
-        const { limit } = req.query;
-        const productList = await products.getProducts();
-        res.json(limit ? productList.slice(0, Number(limit)) : productList);        
-    }catch(error){
-        res.status(500).send(error.message);
-    }
-});
+app.use(express.json());
+app.use(express.urlencoded({extended: true}))
+app.use(express.static("public"))
 
-//obtendo solamente por id del producto
-app.get('/products/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const product = await products.getProductById(id);
-        if (product){
-            res.json(product);
-        }
-    } catch (error) {
-        res.status(404).send({error: "producto no existe"});
-    }
-});
+//Use routers
+app.use('/api/products', productsRouter);
+app.use('/api/carts', cartsRouter);
 
+//servicio
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
 });
