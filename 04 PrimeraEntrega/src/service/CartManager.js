@@ -3,21 +3,80 @@ import fs from "fs";
 export class CartManager {
   constructor(filePath) {
     this.filePath = filePath;
-    this.products = [];
-    this.readProductsFromFile();
+    this.carts = [];
+    this.readCartsFromFile();
   }
 
-  async readProductsFromFile() {
+  //Metodo para la lectura del json
+  async readCartsFromFile() {
     try {
       const data = await fs.promises.readFile(this.filePath, "utf-8");
-      this.products = JSON.parse(data);
+      this.carts = JSON.parse(data);
       this.nextId =
-        this.products.length > 0
-          ? Math.max(...this.products.map((p) => p.id)) + 1
+        this.carts.length > 0
+          ? Math.max(...this.carts.map((p) => p.id)) + 1
           : 1;
     } catch (error) {
       console.error("Error durante la lectura del archivo:", error.message);
-      this.products = [];
+      this.carts = [];
     }
+  }
+
+  //metodo para la escritura de archivos
+  async writeCartsToFile() {
+    fs.promises.writeFile(
+      this.filePath,
+      JSON.stringify(this.carts, null, 2),
+      "utf-8"
+    );
+  }
+
+  //metodo de busqueda de id
+  async findCartIndex(id) {
+    return this.carts.findIndex((carts) => carts.id === id);
+  }
+
+  //metodo para obtner solo un carrito
+  async getCartById(id) {
+    await this.readCartsFromFile();
+    const cart = this.carts.find((cart) => cart.id == id);
+    if (!cart) {
+      throw new Error("Carrito no encontrado.");
+    }
+    return cart;
+  }
+
+  //Metodo para agregar un nuevo carrito
+  async addCart() {
+    await this.readCartsFromFile();
+    const newCart = {
+      id: this.nextId++,
+      products: [],
+    };
+    this.carts.push(newCart);
+    await this.writeCartsToFile();
+    return newCart;
+  }
+
+  //Metodo para agregar para agregar un producto en el carrito
+  async addProductInACart(cartId, productId, quantity = 1) {
+    await this.readCartsFromFile();
+    const cartIndex = this.findCartIndex(cartId);
+
+    if (cartIndex === -1) {
+      throw new Error("Carrito no encontrado.");
+    }
+  
+    const cart = this.carts[cartIndex];
+    const productIndex = cart.products.findIndex((item) => item.productId === productId);
+  
+    if (productIndex === -1) {
+      cart.products.push({ productId, quantity });
+    } else {
+      cart.products[productIndex].quantity += quantity;
+    }
+  
+    await this.writeCartsToFile();
+    return cart;
   }
 }

@@ -81,7 +81,6 @@ export class ProductManager {
     if (productIndex === -1) {
       throw new Error("Producto no encontrado.");
     }
-
     if (
       updates.code &&
       this.products.some(
@@ -90,7 +89,6 @@ export class ProductManager {
     ) {
       throw new Error("El código del producto ya existe en otro producto.");
     }
-
     this.products[productIndex] = {
       ...this.products[productIndex],
       ...updates,
@@ -103,11 +101,9 @@ export class ProductManager {
   async deleteProduct(id) {
     await this.readProductsFromFile();
     const productIndex = this.products.findIndex((product) => product.id == id);
-
     if (productIndex === -1) {
       throw new Error("Producto no encontrado para eliminar.");
     }
-
     this.products.splice(productIndex, 1);
     await this.writeProductsToFile();
     return { message: "Producto eliminado con éxito." };

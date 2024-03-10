@@ -42,8 +42,8 @@ router.post(`/`, async (req, res) => {
 router.put(`/:id`, async (req, res) => {
     const { id } = req.params;
     try {
-        const updatedProduct = await products.updateProduct(Number(id), req.body);
-        res.json(updatedProduct);
+        const updateProduct = await products.updateProduct(Number(id), req.body);
+        res.json(updateProduct);
     } catch (error) {
         if (error.message === "Producto no encontrado.") {
             res.status(404).send({error: error.message});
