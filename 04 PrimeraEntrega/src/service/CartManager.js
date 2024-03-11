@@ -79,8 +79,6 @@ export class CartManager {
       (item) => item.productId == productDetails.id
       );
     
-    console.log('productIndex', productIndex)
-
     if (cartIndex === -1) {
       throw new Error("Carrito no encontrado.");
     }
