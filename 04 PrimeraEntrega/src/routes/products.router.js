@@ -67,7 +67,6 @@ productRouter.post(`/`, async (req, res) => {
 productRouter.put(`/:id`, async (req, res) => {
     const { id } = req.params;
     try {
-        console.log("ingrese put products");
         const updateProduct = await products.updateProduct(Number(id), req.body);
         res.json(updateProduct);
     } catch (error) {

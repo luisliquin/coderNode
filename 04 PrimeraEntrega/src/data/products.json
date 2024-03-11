@@ -22,6 +22,16 @@
     "category": "Original"
   },
   {
+    "id": 3,
+    "title": "Harina",
+    "description": "Palmito",
+    "price": 4000,
+    "thumbnails": [],
+    "code": "PRD-014",
+    "stock": 25,
+    "status": 1
+  },
+  {
     "id": 4,
     "status": 1,
     "title": "Palmito",
@@ -97,45 +107,5 @@
     "code": "PRD-010",
     "stock": 25,
     "category": "Original"
-  },
-  {
-    "id": 11,
-    "title": "caballa",
-    "description": "Palmito",
-    "price": 4000,
-    "thumbnails": [],
-    "code": "PRD-011",
-    "stock": 25,
-    "status": 1
-  },
-  {
-    "id": 12,
-    "title": "caballa",
-    "description": "Palmito",
-    "price": 4000,
-    "thumbnails": [],
-    "code": "PRD-013",
-    "stock": 25,
-    "status": 1
-  },
-  {
-    "id": 13,
-    "title": "caballa",
-    "description": "Palmito",
-    "price": 4000,
-    "thumbnails": [],
-    "code": "PRD-012",
-    "stock": 25,
-    "status": 1
-  },
-  {
-    "id": 14,
-    "title": "caballa",
-    "description": "Palmito",
-    "price": 4000,
-    "thumbnails": [],
-    "code": "PRD-014",
-    "stock": 25,
-    "status": 1
   }
 ]
