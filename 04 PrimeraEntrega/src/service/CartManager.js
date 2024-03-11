@@ -17,7 +17,7 @@ export class CartManager {
           ? Math.max(...this.carts.map((p) => p.id)) + 1
           : 1;
     } catch (error) {
-      console.error("Error durante la lectura del archivo:", error.message);
+      console.error(`Error en la lectura del archivo: ${error.message}`);
       this.carts = [];
     }
   }

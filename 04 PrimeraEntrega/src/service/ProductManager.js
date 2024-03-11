@@ -53,10 +53,12 @@ export class ProductManager {
   }
 
   //Metodo para agregar un nuevo producto
-  async addProduct({ title, description, price, thumbnail, code, stock }) {
+  async addProduct({ title, description, price, thumbnails, code, stock, status, category}) {
     await this.readProductsFromFile();
+    
+    //verifico que el campo code no sea repetido
     if (this.products.find((product) => product.code === code)) {
-      throw new Error("El código del producto ya existe.");
+      throw new Error("El campo code del producto ya existe, deberia cambiar el nombre.");
     }
 
     const newProduct = {
@@ -64,9 +66,11 @@ export class ProductManager {
       title,
       description,
       price,
-      thumbnail,
+      thumbnails,
       code,
       stock,
+      status,
+      category
     };
 
     this.products.push(newProduct);

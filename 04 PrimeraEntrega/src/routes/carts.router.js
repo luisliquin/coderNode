@@ -24,6 +24,7 @@ cartsRouter.get(`/:cid`, async (req, res) => {
 //Controller para agregar un carrito
 cartsRouter.post(`/`, async (req, res) => {
   try {
+    console.log('ingrese a post cart');
     const newCart = await carts.addCart(req.body);
     res.status(201).json(newCart);
   } catch (error) {
@@ -34,11 +35,9 @@ cartsRouter.post(`/`, async (req, res) => {
 //Controller para agregar un producto en el carrito
 cartsRouter.post("/:cid/product/:pid", async (req, res) => {
   try {
+    console.log('ingrese a post CartProduct');
     const { cid, pid } = req.params;
-    const productDetails = await products.getProductById(pid);
-    
-
-
+    const productDetails = await products.getProductById(pid);  
   } catch (error) {
     res.status(500).send({ error: "Error al agregar el producto al carrito" });
   }
