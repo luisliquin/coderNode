@@ -1,14 +1,16 @@
-import express from "express";
+import { Router } from "express";
 import { CartManager } from "../service/CartManager.js";
 import { ProductManager } from "../service/ProductManager.js";
 
-const router = express.Router();
+console.log('ingrese routes carts');
+const cartsRouter = Router();
 const carts = new CartManager("./src/data/carts.json");
 const products = new ProductManager("./src/data/products.json");
 
 //Controller de busqueda por Id
-router.get(`/:cid`, async (req, res) => {
+cartsRouter.get(`/:cid`, async (req, res) => {
   try {
+    console.log('ingrese get cart');
     const { cid } = req.params;
     const cart = await carts.getCartById(cid);
     if (cart) {
@@ -20,7 +22,7 @@ router.get(`/:cid`, async (req, res) => {
 });
 
 //Controller para agregar un carrito
-router.post(`/`, async (req, res) => {
+cartsRouter.post(`/`, async (req, res) => {
   try {
     const newCart = await carts.addCart(req.body);
     res.status(201).json(newCart);
@@ -30,7 +32,7 @@ router.post(`/`, async (req, res) => {
 });
 
 //Controller para agregar un producto en el carrito
-router.post("/:cid/product/:pid", async (req, res) => {
+cartsRouter.post("/:cid/product/:pid", async (req, res) => {
   try {
     const { cid, pid } = req.params;
     const productDetails = await products.getProductById(pid);
@@ -42,4 +44,4 @@ router.post("/:cid/product/:pid", async (req, res) => {
   }
 });
 
-export default router;
+export default cartsRouter;

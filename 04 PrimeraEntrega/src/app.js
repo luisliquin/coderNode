@@ -1,12 +1,17 @@
 import express from 'express';
-import productsRouter from './routes/carts.js';
-import cartsRouter from './routes/products.js';
+import productsRouter from './routes/products.router.js';
+import cartsRouter from './routes/carts.router.js';
 
 const port = 8080;
 const app = express(); 
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
+
+//Test de ingreso
+app.get('/api', (req, res) => {
+    res.send("Ingreso ok")
+})
 
 //Use routers
 app.use('/api/products', productsRouter);
