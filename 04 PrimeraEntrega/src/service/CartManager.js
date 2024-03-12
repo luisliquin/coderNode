@@ -65,7 +65,7 @@ export class CartManager {
 
     const cartIndex = this.findCartIndex(cartId);
 
-    if (cartIndex === -1) {
+    if (cartIndex == -1) {
       throw new Error("Carrito no encontrado.");
     }
 
@@ -79,7 +79,7 @@ export class CartManager {
       (item) => item.productId == productDetails.id
       );
     
-    if (cartIndex === -1) {
+    if (cartIndex == -1) {
       throw new Error("Carrito no encontrado.");
     }
         
