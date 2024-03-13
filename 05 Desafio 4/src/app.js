@@ -28,9 +28,27 @@ app.get('/api', (req, res) => {
     res.send("Ingreso ok")
 })
 
+// Ruta que renderiza la vista en tiempo real de los productos
+app.get('/realtimeproducts', (req, res) => {
+    res.render('realTimeProducts', { productos });
+});
+
 //Use routers
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
+
+//Conexion websocket
+io.on('connection', (socket) => {
+    console.log(`Cliente conectado ${socket.id}`)
+
+    socket.on('evento_personalizado', (data) => {
+        console.log(data);
+    });
+
+    socket.on('disconnect', () => {
+        console.log(`Cliente desconectado ${socket.id}`);
+    });
+});
 
 //servicio
 app.listen(port, () => {
