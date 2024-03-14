@@ -7,7 +7,6 @@ export class ProductManager {
     this.readProductsFromFile();
   }
 
-  //metodo de lectura de archivo json
   async readProductsFromFile() {
     try {
       const data = await fs.promises.readFile(this.filePath, "utf-8");
@@ -22,7 +21,6 @@ export class ProductManager {
     }
   }
 
-  //metodo para la escritura de archivos
   async writeProductsToFile() {
     fs.promises.writeFile(
       this.filePath,
@@ -31,18 +29,15 @@ export class ProductManager {
     );
   }
 
-  //metodo de busqueda de id
   async findProductIndex(id) {
     return this.products.findIndex((product) => product.id === id);
   }
 
-  //metodo para obtener todos los productos
   async getProducts() {
     await this.readProductsFromFile();
     return this.products;
   }
 
-  //metodo para obtner solo un producto
   async getProductById(id) {
     await this.readProductsFromFile();
     const product = this.products.find((product) => product.id == id);
@@ -52,11 +47,9 @@ export class ProductManager {
     return product;
   }
 
-  //Metodo para agregar un nuevo producto
   async addProduct({ title, description, price, thumbnails, code, stock, status, category}) {
     await this.readProductsFromFile();
     
-    //verifico que el campo code no sea repetido
     if (this.products.find((product) => product.code === code)) {
       throw new Error("El campo code del producto ya existe, deberia cambiar el nombre.");
     }
@@ -78,7 +71,6 @@ export class ProductManager {
     return newProduct;
   }
 
-  //Metodo para actualizar un producto
   async updateProduct(id, updates) {
     await this.readProductsFromFile();
     const productIndex = await this.findProductIndex(id);
@@ -100,7 +92,6 @@ export class ProductManager {
     return this.products[productIndex];
   }
 
-  //Metodo para eliminar un producto
   async deleteProduct(id) {
     await this.readProductsFromFile();
     const productIndex = this.products.findIndex((product) => product.id == id);

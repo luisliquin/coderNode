@@ -6,10 +6,9 @@ const cartsRouter = Router();
 const carts = new CartManager("./src/data/carts.json");
 const products = new ProductManager("./src/data/products.json");
 
-//Controller de busqueda por Id
 cartsRouter.get(`/:cid`, async (req, res) => {
   try {
-    const { cid } = req.params;
+    const cid = parseInt(req.params.cid, 10);
     const cart = await carts.getCartById(cid);
     if (cart) {
       res.json(cart);
@@ -19,7 +18,6 @@ cartsRouter.get(`/:cid`, async (req, res) => {
   }
 });
 
-//Controller para agregar un carrito
 cartsRouter.post(`/`, async (req, res) => {
   try {
     const newCart = await carts.addCart();
@@ -29,10 +27,10 @@ cartsRouter.post(`/`, async (req, res) => {
   }
 });
 
-//Controller para agregar un producto en el carrito
 cartsRouter.post("/:cid/product/:pid", async (req, res) => {
   try {
-    const { cid, pid } = req.params;
+    const cid = parseInt(req.params.cid, 10);
+    const pid = parseInt(req.params.pid, 10);
     const productDetails = await products.getProductById(pid);  
     if(!productDetails){
       return res.status(400).send({error: 'Producto no encontrado'});

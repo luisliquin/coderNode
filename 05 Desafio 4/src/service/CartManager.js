@@ -7,7 +7,6 @@ export class CartManager {
     this.readCartsFromFile();
   }
 
-  //Metodo para la lectura del json
   async readCartsFromFile() {
     try {
       const data = await fs.promises.readFile(this.filePath, "utf-8");
@@ -22,7 +21,6 @@ export class CartManager {
     }
   }
 
-  //metodo para la escritura de archivos
   async writeCartsToFile() {
     fs.promises.writeFile(
       this.filePath,
@@ -31,12 +29,10 @@ export class CartManager {
     );
   }
 
-  //metodo de busqueda de id
   async findCartIndex(id) {
     return this.carts.findIndex((carts) => carts.id == id);
   }
 
-  //metodo para obtner solo un carrito
   async getCartById(id) {
     await this.readCartsFromFile();
     const cart = this.carts.find((cart) => cart.id == id);
@@ -46,7 +42,6 @@ export class CartManager {
     return cart;
   }
 
-  //Metodo para agregar un nuevo carrito
   async addCart() {
     await this.readCartsFromFile();
     const newCart = {
@@ -58,7 +53,6 @@ export class CartManager {
     return newCart;
   }
 
-  //Metodo para agregar para agregar un producto en el carrito
   async addProductToACart(cartId, productDetails, quantity = 1) {
     
     await this.readCartsFromFile();
