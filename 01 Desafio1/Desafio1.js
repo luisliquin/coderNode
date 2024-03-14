@@ -49,7 +49,7 @@ class ProductManager {
     console.log(manager.getProducts());
   
     console.log('caso de prueba addProduct');
-    const addedProduct = manager.addProduct({
+    manager.addProduct({
       title: "producto prueba",
       description: "Este es un producto prueba",
       price: 200,
