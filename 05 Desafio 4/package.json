@@ -1,7 +1,7 @@
 {
-  "name": "1raPreentrega",
+  "name": "Desafio4",
   "version": "1.0.0",
-  "description": "Desarrollar un servidor basado en Express donde podamos hacer consultas a nuestro archivo de productos.",
+  "description": "WebSocket y handlebars",
   "main": "app.js",
   "type": "module",
   "scripts": {
