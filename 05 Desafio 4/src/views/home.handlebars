@@ -22,6 +22,13 @@
           <td>{{#if status}} Activo {{else}} Inactivo {{/if}}</td>
           <td>{{this.description}}</td>
           <td>{{this.price}}</td>
+           <td>
+                    {{#if this.thumbnails.length}}
+                        <img src="{{this.thumbnails.[0]}}" alt="Imagen del producto">
+                    {{else}}
+                        Sin imagen
+                    {{/if}}
+                </td>
           <td>{{this.code}}</td>
           <td>{{this.stock}}</td>
           <td>{{this.category}}</td>
