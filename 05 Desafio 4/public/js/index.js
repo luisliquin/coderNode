@@ -1,3 +1,3 @@
 const socket = io();
 
-socket.emit("message", "Inicio del carrito de compras");
+socket.emit("message", "Init carro compras");

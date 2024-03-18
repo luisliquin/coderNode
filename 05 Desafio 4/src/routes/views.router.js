@@ -1,32 +1,23 @@
 import { Router } from "express";
+import { ProductManager } from "../service/ProductManager.js";
 
 const router = Router();
+const products = new ProductManager("./src/data/products.json");
 
-const food = [
-    {name:"Hamburguesa", price: "100"},
-    {name:"Banana", price: "20"},
-    {name:"Soda", price: "40"},
-    {name:"Ensalada", price: "120"},
-    {name:"Pizza", price: "150"}
-];
-
-router.get("/", (req, res) => {
-    const testUser = {
-        name: "Hilda",
-        lastName: "Martinez",
-        role: "admin"
-    }
-
-    res.render(
-        "index",
-        {
-            title: "CoderHouse",
-            style: "index.css",
-            user: testUser,
-            isAdmin: testUser.role === "admin",
-            food
-        }
-    )
+router.get("/", async (req, res) => {
+    try {
+        const productList = await products.getProducts();
+        console.log('productList', productList)
+        res.render(
+            "productList",
+            {
+                title: "Listado productos",
+                style: "index.css",
+                productList
+            });
+    } catch (error) {
+        res.status(500).send(error.message);
+    }    
 });
 
 export default router;

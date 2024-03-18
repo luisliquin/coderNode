@@ -1,6 +1,11 @@
-html{
+html {
     background-color: black;
     color: white;
+}
+
+form {
+    width: 50%; 
+    margin: 0 auto; 
 }
 
 .input-group {
@@ -9,21 +14,15 @@ html{
     margin-bottom: 15px; 
 }
 
-label {
-    margin-bottom: 5px; 
-}
-
-button {
-    margin-top: 20px; 
-}
 input, button {
     width: 100%; 
     box-sizing: border-box; 
+    margin-top: 5px; 
+    margin-bottom: 10px; 
 }
 
-form {
-    width: 50%; 
-    margin: 0 auto; 
+label {
+    margin-bottom: 5px; 
 }
 
 button {
@@ -32,15 +31,11 @@ button {
     border: none; 
     padding: 10px; 
     cursor: pointer; 
+    margin-top: 20px; 
 }
 
 button:hover {
     background-color: #d05; 
-}
-
-input, button {
-    margin-top: 5px; 
-    margin-bottom: 10px; 
 }
 
 @media (max-width: 768px) {
