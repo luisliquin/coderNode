@@ -15,16 +15,18 @@ router.get("/", async (req, res) => {
                 productList
             });
     } catch (error) {
-        res.status(500).send(error.message);
+        res.status(500).send({error: "Error interno del servidor"});
     }    
 });
 
 router.get("/realtimeproducts", async (req, res) => {
     try {
+        const productList = await products.getProducts();
         res.render("realtimeproducts",
         {
             title: "Real Time Products",
             style: "realtimeproducts.css",
+            productList
         }
         );
     } catch (error) {
