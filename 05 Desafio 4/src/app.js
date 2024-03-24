@@ -9,7 +9,7 @@ import { ProductManager } from "./service/ProductManager.js";
 
 const port = 8080;
 const app = express();
-const products = new ProductManager();
+const products = new ProductManager("./src/data/products.json");
 
 app.use(express.static(`${__dirname}/../public`));
 
@@ -30,11 +30,9 @@ const httpServer = app.listen(port, () => {
 
 const socketServer = new Server(httpServer);
 
-socketServer.on("connection", (socket) => {
+socketServer.on("connection", async (socket) => {
   console.log("Cliente conectado: ", socket.id);
-
-  socket.on("requestProducts", async () => {
-    const productList = await products.getProducts();
-    socket.emit("productList", productList);
+  const productList = await products.getProducts();
+  socket.emit("productList", productList);
   });
-});
+
