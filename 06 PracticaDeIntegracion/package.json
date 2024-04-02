@@ -1,5 +1,5 @@
 {
-  "name": "Desafio4",
+  "name": "desafiointegrador",
   "version": "1.0.0",
   "description": "WebSocket y handlebars",
   "main": "app.js",
@@ -12,8 +12,10 @@
   "author": "Luis Liquin",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "express": "^4.18.3",
     "express-handlebars": "^7.1.2",
+    "mongoose": "^8.2.4",
     "multer": "^1.4.5-lts.1",
     "socket.io": "^4.7.4"
   }
