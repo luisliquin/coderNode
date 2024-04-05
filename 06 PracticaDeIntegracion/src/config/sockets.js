@@ -1,5 +1,5 @@
 import { Server } from "socket.io";
-import { ProductManager } from "../service/ProductManager.js";
+import { ProductManager } from "../dao/ProductManagerFS.js";
 import __dirname from "../utils/utils.js";
 
 const setupSockets = (server) => {
