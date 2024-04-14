@@ -18,40 +18,42 @@ productRouter.get(`/`, async (req, res) => {
 
 productRouter.get(`/:id`, async (req, res) => {
     try {
-        const id  = parseInt(req.params.id, 10) ;
-        const product = await products.getProductById(id);
+        const id  = req.params.id;
+        console.log("productId", id)
+        const product = await products.getProductByID(id);
         if (product) {
             res.json(product);            
+        }else{
+            res.status(404).send({error: "Producto no encontrado"});
         }
     } catch (error) {
-        res.status(404).send({ error: "producto no existe" });
+        res.status(500).send({ error: error.message });
     }
 });
 
 productRouter.delete(`/:id`, async (req, res) => {
-    const id = parseInt(req.params.id, 10);
+    const id = req.params.id;
     try {
-        await products.deleteProduct(Number(id));
-        res.status(204).send();
+        await products.deleteProduct(id);
+        res.send({status: "success", message: "producto eliminado " + id});
     } catch (error) {
-        res.status(404).send({ error: "Producto no encontrado." });
+        res.status(404).send({status:"error", error: "Ha ocurrido un error" });
     }
 });
 
 productRouter.post(`/`, async (req, res) => {
-
     const { title, description, price, code, stock } = req.body;  
+
     if (!title || !description || price === undefined || !code || stock === undefined) {
         return res.status(400).send({status: 'Error', error: "Todos los campos son obligatorios excepto thumbnails" });
     }
 
     const status = req.body.status !== undefined ? req.body.status : true; 
-
     const thumbnails = req.body.thumbnails !== undefined ? req.body.thumbnails : []; 
 
     try {
-        const newProduct = await products.addProduct({ title, description, price, code, stock, thumbnails, status });
-        res.status(201).json(newProduct);
+        await products.addProduct({ title, description, price, code, stock, thumbnails, status });
+        res.status(201).send({status: "success", message: "producto agregado"});
     } catch (error) {
         console.log(`Error de post ${error}`);
         res.status(400).send({ status: 'Error', error: error.message });
@@ -59,9 +61,9 @@ productRouter.post(`/`, async (req, res) => {
 });
 
 productRouter.put(`/:id`, async (req, res) => {
-    const id = parseInt(req.params.id, 10);
+    const id = req.params.id;
     try {
-        const updateProduct = await products.updateProduct(Number(id), req.body);
+        const updateProduct = await products.updateProduct(id, req.body);
         res.json(updateProduct);
     } catch (error) {
         if (error.message === "Producto no encontrado.") {

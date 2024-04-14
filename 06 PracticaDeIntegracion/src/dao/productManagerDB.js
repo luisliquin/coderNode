@@ -22,10 +22,6 @@ export default class ProductManagerDB {
     async addProduct(product) {
         const {title, description, code, price, stock, category, thumbnails} = product;
 
-        if (!title || !description || !code || !price || !stock || !category) {
-            throw new Error('Error al crear el producto');
-        }
-
         try {
             const result = await productModel.create({title, description, code, price, stock, category, thumbnails: thumbnails ?? []});
             return result;
@@ -37,8 +33,19 @@ export default class ProductManagerDB {
 
     async updateProduct(pid, productUpdate) {
         try {
-            const result = await productModel.updateOne({_id: pid}, productUpdate);
+            if (!pid || !productUpdate) {
+                console.error("Error: Todos los campos son obligatorios.");
+                return;
+            }
 
+            const product = await productModel.findOne({_id: pid});
+
+            if (!product) {
+                console.error(`Error: Producto con ID ${id} no encontrado.`);
+                return;
+            }
+
+            const result = await productModel.findOneAndUpdate({_id: pid}, productUpdate);
             return result;
         } catch(error) {
             console.error(error.message);
