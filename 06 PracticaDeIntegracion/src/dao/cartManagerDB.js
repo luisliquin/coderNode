@@ -32,7 +32,7 @@ export default class CartManagerDB {
     }
   }
 
-  async getCart(id) {
+  async getCartById(id) {
     try {
       const cart = await cartModel.findOne({_id: id});
       if (!cart) {

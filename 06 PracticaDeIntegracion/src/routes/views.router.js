@@ -9,6 +9,7 @@ const products = new ProductManagerDB();
 router.get("/", async (req, res) => {
     try {
         const productList = await products.getProducts();
+        console.log("productList", productList)
         res.render(
             "home",
             {

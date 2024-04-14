@@ -4,7 +4,6 @@ socket.on('productList', products => {
   const productTableBody = document.querySelector('#product-table tbody');
   productTableBody.innerHTML = products.map(product => `
     <tr>
-      <td>${product.id}</td>
       <td>${product.title}</td>
       <td>${product.status ? 'Activo' : 'Inactivo'}</td>
       <td>${product.description}</td>

@@ -4,10 +4,7 @@ export default class ProductManagerDB {
 
     async getProducts() {
         try {
-            console.log("Antes de llamar a find()");
-            const productos = await productModel.find();
-            console.log("Productos encontrados:", productos);
-            return productos
+            return await productModel.find().lean();            
         } catch (error) {
             console.error(error.message);
             throw new Error("Error al buscar los productos");
@@ -22,7 +19,7 @@ export default class ProductManagerDB {
         return product;
     }
 
-    async createProduct(product) {
+    async addProduct(product) {
         const {title, description, code, price, stock, category, thumbnails} = product;
 
         if (!title || !description || !code || !price || !stock || !category) {
