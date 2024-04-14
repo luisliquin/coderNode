@@ -1,6 +1,6 @@
-import productModel from './models/productModel.js';
+import productModel from './models/ProductModel.js';
 
-class productManagerDB {
+export default class ProductManagerDB {
 
     async getAllProducts() {
         try {
@@ -59,5 +59,3 @@ class productManagerDB {
         }
     }
 }
-
-export { productManagerDB };

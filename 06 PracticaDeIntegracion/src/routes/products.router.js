@@ -1,8 +1,10 @@
 import { Router } from "express";
-import { ProductManager } from "../dao/ProductManagerFS.js";
+//import { ProductManager } from "../dao/ProductManagerFS.js";
+import ProductManagerDB from "../dao/productManagerDB.js";
 
 const productRouter = Router();
-const products = new ProductManager("./src/data/products.json");
+//const products = new ProductManager("./src/data/products.json");
+const products = new ProductManagerDB();
 
 productRouter.get(`/`, async (req, res) => {
     try {
