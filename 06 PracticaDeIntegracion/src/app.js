@@ -28,3 +28,15 @@ setupSockets(server);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
+
+app.get('/chat', async (req, res) => {
+  const chat = await messagesManagerService.getMessages({})
+  res.render(
+    "chat",
+    {
+      style: 'index.css',
+      layout: 'main',
+      chat: chat
+    }
+  )
+})

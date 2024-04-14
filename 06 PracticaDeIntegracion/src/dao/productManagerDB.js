@@ -2,9 +2,12 @@ import productModel from './models/ProductModel.js';
 
 export default class ProductManagerDB {
 
-    async getAllProducts() {
+    async getProducts() {
         try {
-            return await productModel.find().lean();
+            console.log("Antes de llamar a find()");
+            const productos = await productModel.find();
+            console.log("Productos encontrados:", productos);
+            return productos
         } catch (error) {
             console.error(error.message);
             throw new Error("Error al buscar los productos");

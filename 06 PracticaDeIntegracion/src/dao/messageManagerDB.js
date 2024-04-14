@@ -3,7 +3,7 @@ import messageModel from "./models/MessageModel.js";
 export default class MessagesManagerDB {
   async getMessages() {
     try {
-      const messages = await messageModel.find({}).lean()
+      const messages = await messageModel.find()
       return messages
     } catch (error) {
       console.error(error)
