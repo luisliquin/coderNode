@@ -12,7 +12,7 @@ const products = new ProductManagerDB();
 
 cartsRouter.get(`/:cid`, async (req, res) => {
   try {
-    const cid = parseInt(req.params.cid, 10);
+    const cid = req.params.cid;
     const cart = await carts.getCartById(cid);
     if (cart) {
       res.json(cart);
@@ -33,13 +33,15 @@ cartsRouter.post(`/`, async (req, res) => {
 
 cartsRouter.post("/:cid/product/:pid", async (req, res) => {
   try {
-    const cid = parseInt(req.params.cid, 10);
-    const pid = parseInt(req.params.pid, 10);
-    const productDetails = await products.getProductById(pid);  
+    const cid = req.params.cid;
+    const pid = req.params.pid;
+
+    const productDetails = await products.getProductByID(pid);  
     if(!productDetails){
       return res.status(400).send({error: 'Producto no encontrado'});
     }
-    const updateCart = await carts.addProductToACart(cid, productDetails);
+    
+    const updateCart = await carts.addProductToCart(cid, productDetails);
     res.status(201).json(updateCart);
   } catch (error) {
     res.status(500).send(
@@ -50,12 +52,11 @@ cartsRouter.post("/:cid/product/:pid", async (req, res) => {
 
 cartsRouter.delete("/:cid", async (req, res) => {
   const cartId = req.params.cid;
-
   try {
-    await cartManagerService.deleteCart(cartId);
+    await carts.deleteCart(cartId);
     res.send("Carrito eliminado")
   } catch (error) {
-    return res.status(400).send({status:'error', error:'ha ocurrido un error'})
+    return res.status(400).send({status:'error', error: error.message})
   }
 })
 

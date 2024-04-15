@@ -1,11 +1,12 @@
 <h1>Chatee con un representante</h1>
 
-<div class="box">
-    <input id="chatBox" name="chatBox" type="text">
-    <div class="boxMessages">
-        <div id="messagesLogs"></div>
-    </div>
-</div>
+<form>
+  <input type="text" id="user" name="user" placeholder="user" required>
+  <input type="text" id="message" name="message" placeholder="message" required>
+  <button type="button" onclick="addMessage()">Add Message</button>
+</form>
+  <div id="messagesBox">
+  </div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/chat.js"></script>

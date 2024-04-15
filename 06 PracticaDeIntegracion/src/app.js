@@ -6,6 +6,7 @@ import setupSockets from "./config/sockets.js";
 import connectToDatabase from "./config/database.js";
 import { notFoundHandler, errorHandler } from "./config/errorHandlers.js";
 import { config } from "dotenv";
+import MessageManagerDB from "./dao/MessageManagerDB.js";
 
 config();
 
@@ -28,6 +29,8 @@ setupSockets(server);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
+
+const messagesManagerService = new MessageManagerDB()
 
 app.get('/chat', async (req, res) => {
   const chat = await messagesManagerService.getMessages({})

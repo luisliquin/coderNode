@@ -1,7 +1,7 @@
 import { Server } from "socket.io";
 //import { ProductManager } from "../dao/ProductManagerFS.js";
-import ProductManagerDB from "../dao/productManagerDB.js";
-
+import ProductManagerDB from "../dao/ProductManagerDB.js";
+import MessageManagerDB from '../dao/MessageManagerDB.js';
 import __dirname from "../utils/utils.js";
 
 const setupSockets = (server) => {
@@ -9,6 +9,7 @@ const setupSockets = (server) => {
   
     //const products = new ProductManager(`${__dirname}/data/products.json`);
     const products = new ProductManagerDB();
+    const messages = new MessageManagerDB()
 
     io.on("connection", async (socket) => {
         console.log("Cliente conectado: ", socket.id);
@@ -17,11 +18,11 @@ const setupSockets = (server) => {
         socket.emit("productList", productList);
 
         socket.on("addMessage", async messageData => {
-            await messagesManagerService.addMessage(messageData.user, messageData.message)
+            await messages.addMessage(messageData.user, messageData.message)
         })
         
         socket.on("getMessages", async () => {
-            const message = await messagesManagerService.getMessages()
+            const message = await messages.getMessages()
             socket.emit("receiveMessages", message)
         })
 

@@ -1,6 +1,7 @@
 import {cartModel} from "./models/CartModel.js";
 
 export default class CartManagerDB {
+ 
   async addCart() {
     try {
       await cartModel.create({ products: [] })

@@ -1,35 +1,40 @@
 const socket = io();
 
-let user;
-let chatBox = document.querySelector("#chatBox");
-let messagesLogs = document.querySelector("#messagesLogs");
+socket.emit('mensaje','Mensaje recibido desde el cliente');
 
-Swal.fire({
-    title: "Identificate",
-    input: "text",
-    text: "Ingresa el usuario para identificarte en el CoderChat",
-    inputValidator: (value) => {
-        return !value && "¡Necesitas identificarte para continuar!";
-    },
-    allowOutsideClick: false
-}).then(result => {
-    user = result.value;
-    console.log(`Tu nombre de usuario es ${user}`);
+function getMessages() {
+  socket.emit('getMessages')
+}
+getMessages()
 
-    socket.emit("userConnect", user);
+socket.on('receiveMessages', messages => {
+  renderMessages(messages);
 });
 
-chatBox.addEventListener("keypress", e => {
-    if (e.key == "Enter") {
-        if (chatBox.value.trim().length > 0) {
-            console.log(`Mensaje: ${chatBox.value}`);
+function addMessage() {
+  const messageData = {
+    user: document.getElementById('user').value,
+    message : document.getElementById('message').value,
+  }
 
-            socket.emit("message", {
-                user,
-                message: chatBox.value
-            });
+  socket.emit('addMessage', messageData);
+  getMessages()
+  
+  document.getElementById('message').value = ""
+}
 
-            chatBox.value = "";
-        }
-    }
-});
+function renderMessages(messages) {
+  const messagesContainer = document.getElementById("messagesBox");
+  let messagesHTML = '';
+  
+  messages.forEach(message => {
+    messagesHTML += `
+    <div>
+      <p>User: ${message.user}</p>
+      <p>Message: ${message.message}</p>
+    </div>
+    `;
+  });
+
+  messagesContainer.innerHTML = messagesHTML;
+}
