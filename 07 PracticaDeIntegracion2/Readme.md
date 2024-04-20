@@ -36,7 +36,7 @@ Con base en nuestra implementación actual de productos, modificar el método `G
 
 El método `GET` deberá devolver un objeto con el siguiente formato:
 
-## Formato json
+```json
 {
   "status": "success/error",
   "payload": "Resultado de los productos solicitados",
