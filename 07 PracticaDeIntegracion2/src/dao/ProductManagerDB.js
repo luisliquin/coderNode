@@ -45,8 +45,8 @@ export default class ProductManagerDB {
                 return;
             }
 
-            const result = await productModel.findOneAndUpdate({_id: pid}, productUpdate);
-            return result;
+            const result = await productModel.findOneAndUpdate({_id: pid}, productUpdate, {new: true});
+            res.json(result);
         } catch(error) {
             console.error(error.message);
             throw new Error('Error al actualizar el producto');
