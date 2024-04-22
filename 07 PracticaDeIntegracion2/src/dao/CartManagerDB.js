@@ -1,7 +1,15 @@
 import {cartModel} from "./models/CartModel.js";
 
-export default class CartManagerDB {
- 
+export default class CartManagerDB { 
+  async getAllCarts() {
+    try {
+      return await cartModel.find().lean();
+    } catch (error) {
+      console.error(error.message);
+      throw new Error("Error al buscar carts");
+    }
+  }
+
   async addCart() {
     try {
       await cartModel.create({ products: [] })
@@ -54,7 +62,7 @@ export default class CartManagerDB {
         return
       }
     } catch (error) {
-      console.error(error)
+      console.error(`Error al eliminar el carrito: ${error}`);
     }
   }
 }
