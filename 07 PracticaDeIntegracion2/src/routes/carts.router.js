@@ -33,7 +33,7 @@ cartsRouter.post(`/`, async (req, res) => {
     const newCart = await carts.addCart(products);
     res.send({
       status: "success", 
-      payload: result,
+      payload: newCart,
     })
   } catch (error) {
     res.status(400).send({ 

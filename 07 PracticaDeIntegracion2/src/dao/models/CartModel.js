@@ -3,7 +3,7 @@ import mongoosePaginate from "mongoose-paginate-v2";
 
 const cartsCollection = 'carts'
 
-const cartsSchema = new mongoose.Schema({
+const cartSchema = new mongoose.Schema({
   products: {
     type: [
       {
@@ -23,4 +23,4 @@ const cartsSchema = new mongoose.Schema({
 
 cartSchema.plugin(mongoosePaginate);
 
-export const cartModel = mongoose.model(cartsCollection, cartsSchema);
+export const cartModel = mongoose.model(cartsCollection, cartSchema);
