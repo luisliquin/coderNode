@@ -1,7 +1,6 @@
 import { Server } from "socket.io";
 import ProductManagerDB from "../dao/ProductManagerDB.js";
 import MessageManagerDB from '../dao/MessageManagerDB.js';
-import __dirname from "../utils/utils.js";
 
 const setupSockets = (server) => {
     const io = new Server(server);

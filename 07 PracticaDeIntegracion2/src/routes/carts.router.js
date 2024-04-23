@@ -6,24 +6,40 @@ const cartsRouter = Router();
 const carts = new CartManagerDB();
 const products = new ProductManagerDB();
 
+cartsRouter.get("/", async (req, res) => {
+  const result = await CartService.getAllCarts();
+  return res.status(200).send(result);
+});
+
 cartsRouter.get(`/:cid`, async (req, res) => {
   try {
     const cid = req.params.cid;
     const cart = await carts.getCartById(cid);
-    if (cart) {
-      res.json(cart);
-    }
+    res.send({
+      status: "success",
+      payload: cart,
+    });
   } catch (error) {
-    res.status(404).send({ error: "carrito no existe" });
+    res.status(400).send({
+      status: "error",
+      message: error.message,
+    });
   }
 });
 
 cartsRouter.post(`/`, async (req, res) => {
   try {
-    const newCart = await carts.addCart();
-    res.status(201).json(newCart);
+    const { products } = req.body;
+    const newCart = await carts.addCart(products);
+    res.send({
+      status: "success", 
+      payload: result,
+    })
   } catch (error) {
-    res.status(500).send({ error: error.message });
+    res.status(400).send({ 
+      status: "error",
+      message: error.message,
+    });
   }
 });
 
@@ -33,16 +49,23 @@ cartsRouter.post("/:cid/product/:pid", async (req, res) => {
     const pid = req.params.pid;
 
     const productDetails = await products.getProductByID(pid);  
+
     if(!productDetails){
-      return res.status(400).send({error: 'Producto no encontrado'});
-    }
-    
+      return res.status(400).send({
+        status: "error",
+        message: 'Producto no encontrado'
+      });
+    }    
     const updateCart = await carts.addProductToCart(cid, productDetails);
-    res.status(201).json(updateCart);
+    res.send({
+      status: "success",
+      payload: updateCart
+    });
   } catch (error) {
-    res.status(500).send(
-      { status: 'Error', error: error.message }
-    );
+    res.status(400).send({ 
+      status: 'error', 
+      error: error.message 
+    });
   }
 });
 
