@@ -4,12 +4,9 @@ const messageCollection = "messages";
 
 const messageSchema = mongoose.Schema({
     user: {
-        type: String,
-        require: true
-    },
-    message: {
-        type: String,
-        require: true
+        type: String, require: true
+    }, message: {
+        type: String, require: true
     }
 });
 

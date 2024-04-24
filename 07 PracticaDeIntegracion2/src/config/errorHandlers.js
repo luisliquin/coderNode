@@ -7,4 +7,4 @@ const errorHandler = (err, req, res, next) => {
     res.status(500).send('500 - Server Error');
 };
 
-export { notFoundHandler, errorHandler };
+export {notFoundHandler, errorHandler};

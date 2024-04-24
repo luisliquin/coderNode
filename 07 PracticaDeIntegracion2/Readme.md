@@ -36,6 +36,7 @@ Con base en nuestra implementación actual de productos, modificar el método `G
 
 El método `GET` deberá devolver un objeto con el siguiente formato:
 
+````
 {
   "status": "success/error",
   "payload": "Resultado de los productos solicitados",
@@ -48,6 +49,7 @@ El método `GET` deberá devolver un objeto con el siguiente formato:
   "prevLink": "Link directo a la página previa (null si hasPrevPage=false)",
   "nextLink": "Link directo a la página siguiente (null si hasNextPage=false)"
 }
+````
 
 ## Búsqueda y Ordenamiento de Productos
 

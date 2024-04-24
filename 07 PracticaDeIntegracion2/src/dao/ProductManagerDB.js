@@ -1,5 +1,5 @@
 import productModel from './models/ProductModel.js';
-import { productValidator } from '../utils/productValidator.js';
+import {productValidator} from '../utils/productValidator.js';
 
 export default class ProductManagerDB {
     async getProducts() {
@@ -11,27 +11,41 @@ export default class ProductManagerDB {
         }
     }
 
-    async getPaginateProducts(filter, options) {
-        try {
-          return await productModel.paginate(filter, options);
-        } catch (error) {
-          console.error(error.message);
-          throw new Error("Error al buscar los productos");
-        }
-      }
-
     async getProductByID(pid) {
         const product = await productModel.findOne({_id: pid});
         if (!product) throw new Error(`El producto ${pid} no existe!`);
         return product;
     }
 
+    async deleteProduct(pid) {
+        try {
+            const result = await productModel.deleteOne({_id: pid});
+            if (result.deletedCount === 0)
+                throw new Error(`El producto ${pid} no existe!`);
+            return result;
+        } catch (error) {
+            console.error(error.message);
+            throw new Error(`Error al eliminar el producto ${pid}`);
+        }
+    }
+
     async addProduct(product) {
         productValidator(product);
         const {title, description, code, price, stock, category, thumbnails} = product;
         try {
-            const result = await productModel.create({title, description, code, price, stock, category, thumbnails: thumbnails ?? []});
-            return result;
+            const result = await productModel.create({
+                title,
+                description,
+                code,
+                price,
+                stock,
+                category,
+                thumbnails: thumbnails ?? []
+            });
+            res.send({
+                status: 'success',
+                payload: result,
+            })
         } catch (error) {
             console.error(error.message);
             throw new Error('Error al crear el producto');
@@ -50,22 +64,25 @@ export default class ProductManagerDB {
                 return;
             }
             const result = await productModel.findOneAndUpdate({_id: pid}, productUpdate, {new: true});
-            return result;
-        } catch(error) {
-            console.error(error.message);
-            throw new Error('Error al actualizar el producto');
+                res.send({
+                    status: 'success',
+                    payload: result,
+                });
+        } catch (error) {
+            res.status(400).send({
+                status: "error",
+                message: error.message
+            })
+
         }
     }
 
-    async deleteProduct(pid) {
+    async getPaginateProducts(filter, options) {
         try {
-            const result = await productModel.deleteOne({_id: pid});
-            if (result.deletedCount === 0) 
-                throw new Error(`El producto ${pid} no existe!`);
-            return result;
-        } catch(error) {
+            return await productModel.paginate(filter, options);
+        } catch (error) {
             console.error(error.message);
-            throw new Error(`Error al eliminar el producto ${pid}`);
+            throw new Error("Error al buscar los productos");
         }
     }
 }
