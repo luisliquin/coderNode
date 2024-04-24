@@ -1,6 +1,6 @@
 import messageModel from "./models/MessageModel.js";
 
-export default class MessageManagerDB {
+export class MessageManagerDB {
     async getMessages() {
         try {
             const messages = await messageModel.find()

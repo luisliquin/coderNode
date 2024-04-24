@@ -1,6 +1,6 @@
 import {cartModel} from "./models/CartModel.js";
 
-export default class CartManagerDB {
+export class CartManagerDB {
     async getAllCarts() {
         try {
             return await cartModel.find().lean();
@@ -24,7 +24,7 @@ export default class CartManagerDB {
         }
     }
 
-    async addCart() {
+    async addCart(products) {
         try {
             const addCart = await cartModel.create({products});
             return addCart;
@@ -48,18 +48,6 @@ export default class CartManagerDB {
             }
         } catch (error) {
             console.error(error)
-        }
-    }
-
-    async deleteCart(id) {
-        try {
-            const cart = await cartModel.deleteOne({_id: id})
-            if (!cart) {
-                console.error('Carrito no encontrado')
-                return
-            }
-        } catch (error) {
-            console.error(`Error al eliminar el carrito: ${error}`);
         }
     }
 

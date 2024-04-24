@@ -6,11 +6,11 @@ import setupSockets from "./config/sockets.js";
 import connectToDatabase from "./config/database.js";
 import {notFoundHandler, errorHandler} from "./config/errorHandlers.js";
 import {config} from "dotenv";
-import MessageManagerDB from "./dao/MessageManagerDB.js";
+import {MessageManagerDB} from "./dao/MessageManagerDB.js";
 
 config();
 
-const port = 8080;
+const port = 3000;
 const app = express();
 
 app.use(express.static(`${__dirname}/../public`));

@@ -1,7 +1,7 @@
 import productModel from './models/ProductModel.js';
 import {productValidator} from '../utils/productValidator.js';
 
-export default class ProductManagerDB {
+export class ProductManagerDB {
     async getProducts() {
         try {
             return await productModel.find().lean();
