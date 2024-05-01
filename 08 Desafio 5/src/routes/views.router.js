@@ -30,6 +30,12 @@ router.get("/chat", async (req, res) => {
     res.render("chat", {
         title: "Chat con vendedor", style: "chat.css"
     })
-})
+});
+
+router.get("/login", async (req, res) => {
+    res.render("login", {
+        title: "login", style: "login.css"
+    })
+});
 
 export default router;

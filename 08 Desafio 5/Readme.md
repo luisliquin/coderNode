@@ -26,7 +26,6 @@ Proporcionar el link al repositorio de Github sin incluir la carpeta `node_modul
 ## Proceso de Testing
 
 ### Login por Formulario
-
 1. Al cargar el proyecto, iniciar en la pantalla de login.
 2. Desde la pantalla de login, acceder al formulario de registro a través de un link "Regístrate".
 3. El registro debe guardar al usuario en la base de datos y regresar a la pantalla de login.
