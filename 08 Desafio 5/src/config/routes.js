@@ -1,12 +1,18 @@
-import productsRouter from '../routes/products.router.js';
-import cartsRouter from '../routes/carts.router.js';
-import viewsRouter from '../routes/views.router.js';
+import productsRouter from '../routes/productsRouter.js';
+import cartsRouter from '../routes/cartsRouter.js';
+import viewsRouter from '../routes/viewsRouter.js';
 import coockieParser from "cookie-parser"
 import cookiesRouter from "../routes/cookiesRouter.js";
 import session from 'express-session';
-import sessionRouter from "../routes/sessionRouter.js";
+import mongoose from 'mongoose';
+import mongoStore from 'connect-mongo';
+import userRouter from '../routes/usersRouter.js';
 
 const setupRoutes = (app) => {
+    const uri = "mongodb+srv://luisliquin:5VdRQt7U9jhvswU4@cluster0.e7prtgh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+    const options = {dbName: "ecommerce"};
+    mongoose.connect(uri, options);
+
     app.use("/", viewsRouter);
     app.use("/api/products", productsRouter);
     app.use("/api/carts", cartsRouter);
@@ -14,12 +20,18 @@ const setupRoutes = (app) => {
     app.use("cookies", cookiesRouter);
     app.use(session(
         {
-            secret: "secretPhrase",
+            store: mongoStore.create(
+                {
+                    mongoUrl: uri,
+                    ttl: 20
+                }
+            ),
+            secret: 'secretPhrase',
             resave: true,
             saveUninitialized: true
         }
     ))
-    app.use("session", sessionRouter);
+    app.use("/api/sessions", userRouter);
 };
 
 export default setupRoutes;

@@ -1,11 +1,11 @@
 import {Router} from 'express';
 
-import userModel from '../models/userModel.js';
+import userModel from '../dao/models/UserModel.js';
 import {createHash, isValidPassword} from '../utils/functionsUtils.js';
 
-const router = Router();
+const userRouter = Router();
 
-router.post("/register", async (req, res) => {
+userRouter.post("/register", async (req, res) => {
     try {
         req.session.failRegister = false;
 
@@ -27,7 +27,7 @@ router.post("/register", async (req, res) => {
     }
 });
 
-router.post("/login", async (req, res) => {
+userRouter.post("/login", async (req, res) => {
     try {
         req.session.failLogin = false;
         const result = await userModel.findOne({email: req.body.email}).lean();
@@ -52,4 +52,4 @@ router.post("/login", async (req, res) => {
     }
 });
 
-export default router;
+export default userRouter;

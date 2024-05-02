@@ -34,7 +34,13 @@ router.get("/chat", async (req, res) => {
 
 router.get("/login", async (req, res) => {
     res.render("login", {
-        title: "login", style: "login.css"
+        title: "login", style: "custom.css", //failLogin: req.session.failLogin ?? false
+    })
+});
+
+router.get("/register", (req, res) => {
+    res.render('register', {
+        title: 'Coder House', style: 'custom.css', //failRegister: req.session.failRegister ?? false
     })
 });
 
