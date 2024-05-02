@@ -20,14 +20,14 @@ const setupRoutes = (app) => {
     app.use("cookies", cookiesRouter);
     app.use(session(
         {
-            store: mongoStore.create(
-                {
-                    mongoUrl: uri,
-                    ttl: 20
-                }
-            ),
+            // store: mongoStore.create(
+            //     {
+            //         mongoUrl: uri,
+            //         ttl: 1200
+            //     }
+            // ),
             secret: 'secretPhrase',
-            resave: true,
+            resave: false,
             saveUninitialized: true
         }
     ))

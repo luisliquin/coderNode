@@ -30,26 +30,36 @@ userRouter.post("/register", async (req, res) => {
 userRouter.post("/login", async (req, res) => {
     try {
         req.session.failLogin = false;
-        const result = await userModel.findOne({email: req.body.email}).lean();
-        if (!result) {
+        const user = await userModel.findOne({email: req.body.email}).lean();
+        if (!user) {
             req.session.failLogin = true;
             return res.redirect("/login");
         }
 
-        console.log("Se estan comparando >>>>>>", result.password, req.body.password);
-        if (!isValidPassword(result, req.body.password)) {
+        console.log("Se estan comparando >>>>>>", user.password, req.body.password);
+        if (!isValidPassword(user, req.body.password)) {
             req.session.failLogin = true;
             return res.redirect("/login");
         }
 
-        delete result.password;
-        req.session.user = result;
-
-        return res.redirect("/");
+        delete user.password;
+        
+        return res.redirect("/home");
     } catch (e) {
+        console.error("Error en el proceso de login", e)
         req.session.failLogin = true;
         return res.redirect("/login");
     }
+});
+
+userRouter.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            console.error("Error al cerrar la sesión: ", err);
+            return res.status(500).send("No se pudo cerrar la sesión correctamente.");
+        }
+        res.redirect('/login'); 
+    });
 });
 
 export default userRouter;
