@@ -5,11 +5,11 @@ import {auth} from '../Middleware/auth.js';
 const router = Router();
 const products = new ProductManagerDB();
 
-// Ruta para el inicio de sesión como página de inicio
 router.get("/", async (req, res) => {
     res.render("login", {
         title: "Login", 
         style: "custom.css"
+        //,failLogin: req.session.failLogin ?? false
     });
 });
 
@@ -17,11 +17,11 @@ router.get("/login", async (req, res) => {
     res.render("login", {
         title: "Login", 
         style: "custom.css"
+        //,failLogin: req.session.failLogin ?? false
     });
 });
 
-// Ruta modificada para la página de inicio original
-router.get("/home", auth, async (req, res) => {
+router.get("/home", async (req, res) => {
     try {
         const productList = await products.getProducts();
         res.render("home", {
@@ -59,6 +59,7 @@ router.get("/register", (req, res) => {
     res.render('register', {
         title: 'Register', 
         style: 'custom.css'
+        //,failRegister: req.session.failRegister ?? false
     })
 });
 

@@ -13,24 +13,25 @@ const setupRoutes = (app) => {
     const options = {dbName: "ecommerce"};
     mongoose.connect(uri, options);
 
+    app.use(session(
+        {
+            store: mongoStore.create(
+                {
+                    mongoUrl: uri,
+                    ttl: 1200
+                }
+            ),
+            secret: 'secretPhrase',
+            resave: false,
+            saveUninitialized: false,
+            cookie: { secure: false }
+        }
+    ))
+    app.use(coockieParser("CoderPass2024"));
     app.use("/", viewsRouter);
     app.use("/api/products", productsRouter);
     app.use("/api/carts", cartsRouter);
-    app.use(coockieParser("CoderPass2024"));
     app.use("cookies", cookiesRouter);
-    app.use(session(
-        {
-            // store: mongoStore.create(
-            //     {
-            //         mongoUrl: uri,
-            //         ttl: 1200
-            //     }
-            // ),
-            secret: 'secretPhrase',
-            resave: false,
-            saveUninitialized: true
-        }
-    ))
     app.use("/api/sessions", userRouter);
 };
 
