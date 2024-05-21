@@ -26,15 +26,19 @@ const userSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        minLength: 5,
+        minLength: 0,
         require: true
     },
     role: {
         type: String, 
         default: 'user' 
-    } 
+    },
+    isGithub: {
+        type: Boolean,
+        default: false
+    }     
 });
 
-const userModel = mongoose.model(userCollection, userSchema);
+const UserModel = mongoose.model(userCollection, userSchema);
 
-export default userModel;
+export default UserModel;

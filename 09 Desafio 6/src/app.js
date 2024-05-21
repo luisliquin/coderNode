@@ -7,6 +7,9 @@ import connectToDatabase from "./config/database.js";
 import {notFoundHandler, errorHandler} from "./config/errorHandlers.js";
 import {config} from "dotenv";
 import {MessageManagerDB} from "./dao/MessageManagerDB.js";
+import passport from "passport";
+import session from 'express-session';
+import mongoStore from 'connect-mongo';
 
 config();
 
@@ -27,8 +30,8 @@ const server = app.listen(port, () => {
 
 setupSockets(server);
 
-app.use(notFoundHandler);
-app.use(errorHandler);
+// app.use(notFoundHandler);
+// app.use(errorHandler);
 
 const messagesManagerService = new MessageManagerDB()
 

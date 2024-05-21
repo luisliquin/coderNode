@@ -1,6 +1,6 @@
 import {Router} from 'express';
-
-import userModel from '../dao/models/UserModel.js';
+import passport from 'passport';
+import UserModel from '../dao/models/UserModel.js';
 import {createHash, isValidPassword} from '../utils/functionsUtils.js';
 
 const userRouter = Router();
@@ -18,7 +18,7 @@ userRouter.post("/register", async (req, res) => {
             age: req.body.age ?? "",
             password: createHash(req.body.password)
         }
-        await userModel.create(newUser);
+        await UserModel.create(newUser);
         res.redirect("/login");
     } catch (e) {
         console.log(e.message);
@@ -30,7 +30,7 @@ userRouter.post("/register", async (req, res) => {
 userRouter.post("/login", async (req, res) => {
     try {
         req.session.failLogin = false;
-        const user = await userModel.findOne({email: req.body.email}).lean();
+        const user = await UserModel.findOne({email: req.body.email}).lean();
         if (!user) {
             req.session.failLogin = true;
             return res.redirect("/login");
@@ -61,5 +61,20 @@ userRouter.get('/logout', (req, res) => {
         res.redirect('/login'); 
     });
 });
+
+userRouter.get('/github', passport.authenticate('github', {scope: ['user:email']}), (req, res) => {
+    res.send({
+        status: 'success',
+        message: 'Success'
+    });
+});
+
+userRouter.get('/github/callback',
+    passport.authenticate('github', { failureRedirect: '/login' }),
+    (req, res) => {
+        req.session.user = req.user;
+        res.redirect('/home');
+    }
+);
 
 export default userRouter;

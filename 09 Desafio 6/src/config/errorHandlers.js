@@ -3,7 +3,6 @@ const notFoundHandler = (req, res, next) => {
 };
 
 const errorHandler = (err, req, res, next) => {
-    console.error(err.stack);
     res.status(500).send('500 - Server Error');
 };
 

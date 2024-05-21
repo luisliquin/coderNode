@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { ProductManagerDB } from "../dao/ProductManagerDB.js";
 import {auth} from '../Middleware/auth.js';
+import passport from "passport";
 
 const router = Router();
 const products = new ProductManagerDB();
@@ -9,7 +10,6 @@ router.get("/", async (req, res) => {
     res.render("login", {
         title: "Login", 
         style: "custom.css"
-        //,failLogin: req.session.failLogin ?? false
     });
 });
 
@@ -17,7 +17,6 @@ router.get("/login", async (req, res) => {
     res.render("login", {
         title: "Login", 
         style: "custom.css"
-        //,failLogin: req.session.failLogin ?? false
     });
 });
 
@@ -59,8 +58,13 @@ router.get("/register", (req, res) => {
     res.render('register', {
         title: 'Register', 
         style: 'custom.css'
-        //,failRegister: req.session.failRegister ?? false
     })
 });
+
+router.get("/callback", passport.authenticate ("github",  {
+    failureRedirect: "/login",
+    successRedirect: "/home",
+    passReqToCallback: true
+}));
 
 export default router;
