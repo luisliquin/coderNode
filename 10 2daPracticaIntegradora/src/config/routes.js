@@ -13,6 +13,8 @@ import "../config/passport.js"
 
 const setupRoutes = (app) => {
     const uri = "mongodb+srv://luisliquin:5VdRQt7U9jhvswU4@cluster0.e7prtgh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+    const sessionSecret = ""; 
+    
     const options = {dbName: "ecommerce"};
     mongoose.connect(uri, options);
 
@@ -34,10 +36,11 @@ const setupRoutes = (app) => {
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(coockieParser("CoderPass2024"));
+
     app.use("/", viewsRouter);
     app.use("/api/products", productsRouter);
     app.use("/api/carts", cartsRouter);
-    app.use("cookies", cookiesRouter);
+    app.use("/cookies", cookiesRouter);
     app.use("/api/sessions", userRouter);
 };
 

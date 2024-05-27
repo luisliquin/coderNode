@@ -2,6 +2,7 @@ import { Router } from "express";
 import { ProductManagerDB } from "../dao/ProductManagerDB.js";
 import {auth} from '../Middleware/auth.js';
 import passport from "passport";
+import jwt from 'jsonwebtoken';
 
 const router = Router();
 const products = new ProductManagerDB();

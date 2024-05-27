@@ -1,29 +1,29 @@
-# Refactor a Nuestro Login
+# Consigna
 
-## Consigna
+Continuar sobre el proyecto que has trabajado para tu ecommerce y configurar los siguientes elementos:
 
-Con base en el login de nuestro entregable anterior, refactorizar para incluir los nuevos conceptos.
+## Aspectos a incluir
 
-### Aspectos a incluir
+1. Crear un modelo User el cual contará con los campos:
+   - `first_name`: String
+   - `last_name`: String
+   - `email`: String (único)
+   - `age`: Number
+   - `password`: String (Hash)
+   - `cart`: Id con referencia a Carts
+   - `role`: String (default: 'user')
 
-- Se deberá contar con un hasheo de contraseña utilizando **bcrypt**.
-- Se deberá contar con una implementación de **passport**, tanto para el proceso de registro como para el login.
-- Implementar el método de autenticación de **GitHub** a la vista de login.
+2. Desarrollar las estrategias de Passport para que funcionen con este modelo de usuarios.
+
+3. Modificar el sistema de login del usuario para poder trabajar con session o con JWT (a tu elección).
+   - (Sólo para JWT) Desarrollar una estrategia “current” para extraer la cookie que contiene el token para obtener el usuario asociado a dicho token. En caso de tener el token, devolver al usuario asociado al token; caso contrario, devolver un error de Passport. Utilizar un extractor de cookie.
+
+4. Agregar al router `/api/sessions/` la ruta `/current`, la cual utilizará el modelo de sesión que estés utilizando, para poder devolver en una respuesta el usuario actual.
 
 ## Formato
 
-[Link al repositorio de GitHub](#) con el proyecto solicitado.
+Link al repositorio de GitHub con el proyecto completo (No incluir node_modules).
 
 ## Sugerencias
 
-El testeo se realizará de manera muy similar al anterior, puedes consultar el documento de testing aquí:  
-**DESAFÍO ENTREGABLE - PROCESO DE TESTING**
-
-### Refactor a nuestro login
-
-1. Al cargar el proyecto, éste deberá comenzar en la pantalla de login.
-2. Al no tener un usuario registrado aún, se procederá a hacer un registro, por lo que la pantalla de login debe tener un link de “regístrate”, el cual nos redireccione a la pantalla de registro.
-3. Al registrarme con los datos solicitados, se revisará la contraseña guardada en la base de datos, cuidando que ésta esté correctamente hasheada.
-4. Se realizará el proceso de login con las mismas credenciales con las que se registró el usuario, corroborando que el login funcione correctamente y redirija a la pantalla principal.
-5. Además, la pantalla de login deberá contar con un botón “entrar con Github” el cual al hacer click nos permita entrar directamente a la página con los datos obtenidos de Github.
-6. Se corroborará en la base de datos que el nuevo usuario “creado con Github” cuente con un password vacío.
+Te recomendamos trabajar con el modelo de sesión con el cual te sientas más cómodo (sessions / JWT).
