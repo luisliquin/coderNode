@@ -7,7 +7,7 @@ import UserModel from "../dao/models/UserModel.js";
 import { createHash, isValidPassword } from "../utils/functionsUtils.js";
 
 const LocalStrategy = local.Strategy;
-
+const initializatePassport = () => {
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
@@ -83,3 +83,6 @@ passport.deserializeUser(async (id, done) => {
   const user = await UserModel.findById(id);
   return done(null, user);
 });
+};
+
+export default initializatePassport;

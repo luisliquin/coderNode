@@ -32,6 +32,7 @@ userRouter.post("/register", async (req, res) => {
     }
 });
 
+//guardar la cookie
 userRouter.post("/login", async (req, res, next) => {
     try {
         req.session.failLogin = false;
@@ -82,8 +83,27 @@ userRouter.get('/github/callback',
     }
 );
 
-userRouter.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
-    res.send(req.user);
-});
+userRouter.get(
+    "/current",
+    passport.authenticate("jwtCookies"),
+    async(req, res) => {
+      const { userId } = req.user;
+      const user = await userDao.getById(userId);
+      if (!user) res.send("Not found");
+      else {
+        const { first_name, last_name, email, role } = user;
+        res.json({
+          status: "success",
+          userData: {
+            first_name,
+            last_name,
+            email,
+            role,
+          },
+        });
+      }
+    }
+  );
+  
 
 export default userRouter;
