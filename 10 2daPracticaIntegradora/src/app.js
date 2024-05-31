@@ -7,9 +7,7 @@ import connectToDatabase from "./config/database.js";
 import {notFoundHandler, errorHandler} from "./config/errorHandlers.js";
 import {config} from "dotenv";
 import {MessageManagerDB} from "./dao/MessageManagerDB.js";
-import passport from "passport";
-import session from 'express-session';
-import mongoStore from 'connect-mongo';
+import initializatePassport from "./config/passport.js";
 
 config();
 
@@ -23,6 +21,7 @@ app.use(express.json());
 setupHandlebars(app);
 setupRoutes(app);
 connectToDatabase();
+initializatePassport();
 
 const server = app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);

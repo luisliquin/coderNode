@@ -1,5 +1,5 @@
-import passport from 'passport';
-import { ExtractJwt, Strategy as jwtStrategy } from 'passport-jwt'
+import passport from "passport";
+import { ExtractJwt, Strategy as jwtStrategy } from "passport-jwt";
 
 const cookieExtractor = (req) => {
   const token = req.cookies.token;
@@ -16,3 +16,11 @@ passport.use(
   "jwtCookies",
   new jwtStrategy(strategyOptionsCookies, verifyToken)
 );
+passport.serializeUser((user, done)=>{
+  done(null, user.userId);
+});
+
+passport.deserializeUser(async(id, done)=>{
+  const user = await userDao.getById(id);
+  return done(null, user);
+});

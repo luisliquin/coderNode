@@ -7,12 +7,12 @@ import session from 'express-session';
 import mongoose from 'mongoose';
 import mongoStore from 'connect-mongo';
 import userRouter from '../routes/usersRouter.js';
-import initializatePassport from '../config/passport.js';
 import passport from 'passport';
+import '../config/passport.js';
 
 const setupRoutes = (app) => {
     const uri = "mongodb+srv://luisliquin:5VdRQt7U9jhvswU4@cluster0.e7prtgh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-    const sessionSecret = ""; 
+    const sessionSecret = "1234"; 
     
     const options = {dbName: "ecommerce"};
     mongoose.connect(uri, options);
