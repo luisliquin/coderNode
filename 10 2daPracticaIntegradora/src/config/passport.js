@@ -4,10 +4,11 @@ import local from "passport-local";
 import { Strategy as GitHubStrategy } from "passport-github2";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import UserModel from "../dao/models/UserModel.js";
-import { createHash, isValidPassword } from "../utils/functionsUtils.js";
 
 const LocalStrategy = local.Strategy;
+
 const initializatePassport = () => {
+
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
@@ -54,6 +55,32 @@ passport.use(
     }
   )
 );
+
+const cookieExtractor = (req) => {
+  let token = null;
+  if (req && req.cookies) {
+    token = req.cookies['token'];
+  }
+  return token;
+};
+
+const verifyToken = async (jwt_payload, done) => {
+  try {
+    const user = await UserModel.findById(jwt_payload.sub);
+    if (user) {
+      return done(null, user);
+    } else {
+      return done(null, false);
+    }
+  } catch (err) {
+    return done(err, false);
+  }
+};
+
+const strategyOptionsCookies = {
+  jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
+  secretOrKey: '1234',
+};
 
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
