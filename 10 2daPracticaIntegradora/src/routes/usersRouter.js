@@ -18,9 +18,8 @@ userRouter.post("/register", async (req, res) => {
             last_name: req.body.last_name ?? "",
             email: req.body.email,
             age: req.body.age ?? "",
-            password: createHash(req.body.password),
-            cart: req.body.cart ?? null,
-            role: req.body.role ?? 'user'
+            password: createHash(req.body.password)
+        
         }        
         await UserModel.create(newUser);
         res.redirect("/login");
@@ -36,13 +35,16 @@ userRouter.post("/login", async (req, res, next) => {
         const user = await UserModel.findOne({email: req.body.email}).lean();
         console.log("Se estan comparando >>>>>>", user.password, req.body.password);
         if (!user || !isValidPassword(user, req.body.password)) {
+            req.session.failLogin = true;
             return res.redirect("/login");
         }        
         const token = generateToken();
         res.cookie('token', token, {httpOnly: true})
+        delete user.password;
         return res.redirect("/home");
     } catch (e) {
         console.error("Error en el proceso de login", e)
+        req.session.failLogin = true;
         return res.redirect("/login");
     }
 });

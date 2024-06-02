@@ -102,6 +102,19 @@ passport.use(
   }
 }));
 
+passport.use('jwtCookies', new JwtStrategy(strategyOptionsCookies, async (jwt_payload, done) => {
+  try {
+    const user = await UserModel.findById(jwt_payload.sub);
+    if (user) {
+      return done(null, user);
+    } else {
+      return done(null, false);
+    }
+  } catch (err) {
+    return done(err);
+  }
+}));
+
 passport.serializeUser((user, done) => {
   done(null, user._id);
 });
