@@ -33,14 +33,21 @@ userRouter.post("/login", async (req, res, next) => {
     try {
         req.session.failLogin = false;
         const user = await UserModel.findOne({email: req.body.email}).lean();
-        console.log("Se estan comparando >>>>>>", user.password, req.body.password);
-        if (!user || !isValidPassword(user, req.body.password)) {
+        if (!user) {
             req.session.failLogin = true;
             return res.redirect("/login");
         }        
-        const token = generateToken();
+
+        console.log("Se estan comparando >>>>>>", user.password, req.body.password);
+
+        if (!isValidPassword(user, req.body.password)) {
+            req.session.failLogin = true;
+            return res.redirect("/login");
+        }        
+
+        const token = generateToken(user);
+
         res.cookie('token', token, {httpOnly: true})
-        delete user.password;
         return res.redirect("/home");
     } catch (e) {
         console.error("Error en el proceso de login", e)
@@ -69,27 +76,8 @@ userRouter.get('/github/callback',
     }
 );
 
-userRouter.get(
-    "/current",
-    passport.authenticate("jwtCookies"),
-    async(req, res) => {
-      const { userId } = req.user;
-      const user = await userDao.getById(userId);
-      if (!user) res.send("Not found");
-      else {
-        const { first_name, last_name, email, role } = user;
-        res.json({
-          status: "success",
-          userData: {
-            first_name,
-            last_name,
-            email,
-            role,
-          },
-        });
-      }
-    }
-  );
-  
+userRouter.get('/current', passport.authenticate('jwtCookies', { session: false }), (req, res) => {
+    res.json({ user: req.user });
+});  
 
 export default userRouter;
