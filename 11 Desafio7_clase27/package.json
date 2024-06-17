@@ -1,12 +1,12 @@
 {
-  "name": "27--Arquitectura-de-servidor",
+  "name": "desafio-clase-27",
   "version": "1.0.0",
   "description": "",
-  "main": "src/server.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon .",
-    "dev": "nodemon ."
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/server.js"
   },
   "keywords": [],
   "author": "Luis Liquin",
