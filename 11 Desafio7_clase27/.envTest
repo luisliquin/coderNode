@@ -1,0 +1,6 @@
+PORT=3000
+MONGO_URL="mongodb+srv://luisliquin:5VdRQt7U9jhvswU4@cluster0.e7prtgh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+DB_NAME="ecommerce"
+JWT_SECRET="1234"
+GITHUB_CLIENT_ID="Ov23liRgUG2ddJBIwrz1"
+GITHUB_CLIENT_SECRET="12b0086d09825e1bf3b8ee6d386c80f576494b52"

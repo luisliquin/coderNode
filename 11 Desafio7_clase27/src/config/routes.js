@@ -1,5 +1,3 @@
-import productsRouter from '../routes/productsRouter.js';
-import cartsRouter from '../routes/cartsRouter.js';
 import viewsRouter from '../routes/viewsRouter.js';
 import coockieParser from "cookie-parser"
 import cookiesRouter from "../routes/cookiesRouter.js";
@@ -13,7 +11,6 @@ import 'dotenv/config'
 
 const setupRoutes = (app) => {
     const uri = process.env.MONGO_URL;
-    const sessionSecret = process.env.JWT_SECRET; 
     const dbName = process.env.DB_NAME
 
     const options = {dbName: dbName};

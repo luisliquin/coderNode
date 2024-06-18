@@ -7,7 +7,6 @@ import 'dotenv/config'
 
 const userRouter = Router();
 
-const githubClientSecret = process.env.GITHUB_CLIENT_SECRET
 const jwtSecret = process.env.JWT_SECRET;
 
 const generateToken = (user) => {
