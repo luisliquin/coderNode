@@ -6,8 +6,11 @@ import setupSockets from "./config/sockets.js";
 import connectToDatabase from "./config/database.js";
 import {notFoundHandler, errorHandler} from "./config/errorHandlers.js";
 import {config} from "dotenv";
-import {MessageManagerDB} from "./dao/MessageManagerDB.js";
+import {MessageManagerDB} from "./dao/message.dao.js";
 import initializatePassport from "./config/passport.js";
+import morgan from 'morgan';
+import MainRouter from './routes/index.js';
+const mainRouter = new MainRouter();
 
 config();
 
@@ -17,6 +20,9 @@ const app = express();
 app.use(express.static(`${__dirname}/public`));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+app.use(morgan('dev'));
+
+app.use('/api', mainRouter.getRouter());
 
 setupHandlebars(app);
 setupRoutes(app);
