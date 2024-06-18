@@ -39,8 +39,6 @@ const setupRoutes = (app) => {
     app.use(coockieParser("CoderPass2024"));
 
     app.use("/", viewsRouter);
-    app.use("/api/products", productsRouter);
-    app.use("/api/carts", cartsRouter);
     app.use("/cookies", cookiesRouter);
     app.use("/api/sessions", userRouter);
 };

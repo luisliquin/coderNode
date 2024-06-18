@@ -8,7 +8,7 @@ export default class MainRouter {
     this.router = Router();
     this.initRoutes();
   }
-
+  
   initRoutes() {
     this.router.use("/products", productsRouter);
     this.router.use("/users", userRouter);
