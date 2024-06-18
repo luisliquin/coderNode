@@ -4,6 +4,11 @@ import local from "passport-local";
 import { Strategy as GitHubStrategy } from "passport-github2";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import UserModel from "../dao/models/UserModel.js";
+import 'dotenv/config'
+
+const sessionSecret = process.env.JWT_SECRET; 
+const githubClientId = process.env.GITHUB_CLIENT_ID;
+const githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
 
 const LocalStrategy = local.Strategy;
 
@@ -29,8 +34,8 @@ passport.use(
   "github",
   new GitHubStrategy(
     {
-      clientID: "Ov23liRgUG2ddJBIwrz1",
-      clientSecret: "12b0086d09825e1bf3b8ee6d386c80f576494b52",
+      clientID: githubClientId,
+      clientSecret: githubClientSecret,
       callbackURL: "http://localhost:3000/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
@@ -79,12 +84,12 @@ const verifyToken = async (jwt_payload, done) => {
 
 const strategyOptionsCookies = {
   jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
-  secretOrKey: '1234',
+  secretOrKey: sessionSecret,
 };
 
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: "nEDakKhN8m"
+  secretOrKey: sessionSecret
 };
 
 passport.use(

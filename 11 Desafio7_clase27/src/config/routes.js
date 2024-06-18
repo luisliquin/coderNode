@@ -9,12 +9,14 @@ import mongoStore from 'connect-mongo';
 import userRouter from '../routes/usersRouter.js';
 import passport from 'passport';
 import '../config/passport.js';
+import 'dotenv/config'
 
 const setupRoutes = (app) => {
-    const uri = "mongodb+srv://luisliquin:5VdRQt7U9jhvswU4@cluster0.e7prtgh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-    const sessionSecret = "1234"; 
-    
-    const options = {dbName: "ecommerce"};
+    const uri = process.env.MONGO_URL;
+    const sessionSecret = process.env.JWT_SECRET; 
+    const dbName = process.env.DB_NAME
+
+    const options = {dbName: dbName};
     mongoose.connect(uri, options);
 
     app.use(session(

@@ -1,11 +1,15 @@
 import mongoose from 'mongoose';
+import 'dotenv/config'
+
+const mongo_url = process.env.MONGO_URL;
+const dbName = process.env.DB_NAME;
 
 const connectToDatabase = async () => {
     try {
-        await mongoose.connect("mongodb+srv://luisliquin:5VdRQt7U9jhvswU4@cluster0.e7prtgh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {dbName: "ecommerce"})
+        await mongoose.connect(mongo_url, {dbName: dbName})
         console.log("conectado a la bbdd en mongo")
     } catch (error) {
-        console.log("Fallo de conexion a la bbdd");
+        console.log(`Fallo de conexion a la bbdd: ${error}`);
         process.exit(1);
     }
 };
