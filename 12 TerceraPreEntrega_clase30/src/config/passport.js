@@ -3,7 +3,7 @@ import passport from "passport";
 import local from "passport-local";
 import { Strategy as GitHubStrategy } from "passport-github2";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
-import UserModel from "../dao/models/UserModel.js";
+import UserModel from "../daos/mongodb/models/UserModel.js";
 import 'dotenv/config'
 
 const sessionSecret = process.env.JWT_SECRET; 

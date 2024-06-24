@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { ProductManagerDB } from "../dao/product.dao.js";
+import { ProductManagerDB } from "../daos/mongodb/product.dao.js";
 import passport from "passport";
 
 const router = Router();

@@ -1,5 +1,5 @@
 import productModel from './models/ProductModel.js';
-import {productValidator} from '../utils/productValidator.js';
+import {productValidator} from '../../utils/productValidator.js';
 
 export class ProductManagerDB {
     async getProducts() {

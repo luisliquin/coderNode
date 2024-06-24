@@ -1,6 +1,6 @@
 import {Server} from "socket.io";
-import {ProductManagerDB} from "../dao/product.dao.js";
-import {MessageManagerDB} from '../dao/message.dao.js';
+import {ProductManagerDB} from "../daos/mongodb/product.dao.js";
+import {MessageManagerDB} from '../daos/mongodb/message.dao.js';
 
 const setupSockets = (server) => {
     const io = new Server(server);

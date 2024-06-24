@@ -1,7 +1,7 @@
 import {Router} from 'express';
 import passport from 'passport';
-import UserModel from '../dao/models/UserModel.js';
-import {createHash, isValidPassword} from '../utils/functionsUtils.js';
+import UserModel from '../daos/mongodb/models/UserModel.js';
+import {createHash, isValidPassword} from '../utils.js';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config'
 
