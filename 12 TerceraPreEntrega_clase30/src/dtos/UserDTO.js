@@ -1,10 +1,13 @@
-class UserDTO {
-    constructor(user) {
-        this.id = user._id;
-        this.firstName = user.first_name;
-        this.lastName = user.last_name;
-        this.email = user.email;
-    }
+export default class UserDTO {
+  constructor(user) {
+    this.email = user.email;
+    this.id = user.id;
+    this.firtName = user.firstName;
+    this.lastName = user.lastName;
+    this.password = user.password;
+    this.role = user.role;
+    this.cartId = user.cartId;
+    this.login = true;
+    this.fullName = `${user.firstName} ${user.lastName}`;
+  }
 }
-
-export default UserDTO;
